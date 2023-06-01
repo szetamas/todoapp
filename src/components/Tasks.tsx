@@ -3,7 +3,6 @@ import { TaskInterface } from '../interfaces/TaskInterface';
 import {
   Badge,
   Input,
-  Label,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
@@ -29,8 +28,7 @@ function Tasks() {
           }
         >
           <ListGroupItemHeading>
-            <Input type="checkbox" checked={actTask.done} /> #{actTask.id}{' '}
-            {actTask.task}{' '}
+            <Input type="checkbox" /> #{actTask.id} {actTask.task}{' '}
             {actTask.important ? (
               <Badge color="danger" pill>
                 IMPORTANT

@@ -1,6 +1,6 @@
 const { conMySQL } = require('./conMySQL.js');
 
-function getATask(req, res) {
+function getTask(req, res) {
   let { id } = req.params;
   if (id === null || isNaN(id)) {
     res.status(400).send({ error: 'format of id is wrong' });
@@ -23,4 +23,4 @@ function getATask(req, res) {
   });
 }
 
-module.exports = { getATask };
+module.exports = { getTask };
