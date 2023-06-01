@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TaskInterface } from '../interfaces/TaskInterface';
 import {
+  Alert,
   Button,
   Form,
   FormGroup,
@@ -35,14 +36,18 @@ function NewTask() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setError('');
-        setTask({
-          id: 0,
-          task: '',
-          note: '',
-          important: false,
-          done: false,
-        });
+        if (res.error) {
+          setError('Error: ' + res.error);
+        } else {
+          setError('');
+          setTask({
+            id: 0,
+            task: '',
+            note: '',
+            important: false,
+            done: false,
+          });
+        }
       })
       .catch((er) => {
         setError('Error: ' + er);
@@ -58,6 +63,7 @@ function NewTask() {
         <InputGroup>
           <Input
             id="task"
+            role="newTaskInput"
             placeholder="Task..."
             value={task.task}
             onChange={(e) => setTask({ ...task, task: e.target.value })}
@@ -66,6 +72,7 @@ function NewTask() {
             Important:
             <Input
               id="important"
+              role="newTaskCheckbox"
               type="checkbox"
               checked={task.important}
               onChange={() => {
@@ -82,16 +89,18 @@ function NewTask() {
         <InputGroup>
           <Input
             id="note"
+            role="newTaskTextarea"
             type="textarea"
             placeholder="Note..."
             value={task.note}
             onChange={(e) => setTask({ ...task, note: e.target.value })}
           />
-          <Button type="submit" color="primary">
+          <Button role="newTaskButton" type="submit" color="primary">
             ADD
           </Button>
         </InputGroup>
       </FormGroup>
+      {error !== '' ? <Alert color="warning">{error}</Alert> : ''}
     </Form>
   );
 }

@@ -4,6 +4,7 @@ function addTask(req, res) {
   let actTask = req.body;
   if (
     actTask.task === null ||
+    actTask.task.length < 1 ||
     actTask.task.length > 100 ||
     actTask.note.length > 300
   ) {
